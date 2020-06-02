@@ -1,0 +1,161 @@
+easy_admin:
+    design:
+        menu:
+            - {label: "Entities"}
+            - label:  "Afspraak"
+              children:
+                  - {entity: Afspraak, label: "Afspraak list", icon: "th-list"}
+            - label:  "Klant"
+              children:
+                  - {entity: Klant, label: "Klant list", icon: "th-list"}
+                  - {entity: Klant, label: "Add klant", icon: "plus", params: {action: 'new'}}
+            - label:  "Kapper"
+              children:
+                  - {entity: Kapper, label: "Kapper list", icon: "th-list"}
+                  - {entity: Kapper, label: "Add kapper", icon: "plus", params: {action: 'new'}}
+            - label:  "Agenda"
+              children:
+                  - {entity: Agenda, label: "Agenda list", icon: "th-list"}
+                  - {entity: Agenda, label: "Add agenda", icon: "plus", params: {action: 'new'}}
+            - label:  "Diensten"
+              children:
+                  - {entity: Diensten, label: "Diensten list", icon: "th-list"}
+                  - {entity: Diensten, label: "Add diensten", icon: "plus", params: {action: 'new'}}
+            - label:  "DienstenKapper"
+              children:
+                  - {entity: DienstenKapper, label: "DienstenKapper list", icon: "th-list"}
+                  - {entity: DienstenKapper, label: "Add DienstenKapper", icon: "plus", params: {action: 'new'}}
+    site-name: 'Hairdate'
+    user:
+        display_name: false
+        display_avatar: true
+        name_property_path: 'email'
+    entities:
+        # List the entity class name you want to manage
+        Klant:
+            class: App\Entity\Klant
+            label: "Klant"
+            form:
+                fields:
+                    - {type: 'group', icon: 'pencil', label: 'Basic information', css_class: 'col-lg-7'}
+                    - email
+                    - password
+                    - voornaam
+                    - naam
+                    - telnr
+                    - {type: 'group', icon: 'pencil', label: 'Adress information', css_class: 'col-lg-5'}
+                    - postcode
+                    - gemeente
+                    - straat
+                    - huisnr
+                    - busnr
+            show:
+                fields:
+                    - id
+                    - email
+                    - naam
+                    - voornaam
+                    - postcode
+                    - gemeente
+                    - straat
+                    - huisnr
+                    - busnr
+                    - telnr
+                    - afspraken
+            list:
+                actions: ['show','edit','delete']
+                batch_actions: ['delete']
+
+        Kapper:
+            class: App\Entity\Kapper
+            label: "Kapper"
+            form:
+                fields:
+                    - {type: 'group', icon: 'pencil', label: 'Basic information', css_class: 'col-lg-7'}
+                    - email
+                    - naam
+                    - telnr
+                    - {type: 'group', icon: 'pencil', label: 'Adress information', css_class: 'col-lg-5'}
+                    - postcode
+                    - gemeente
+                    - straat
+                    - huisnr
+                    - busnr
+            show:
+                fields:
+                    - id
+                    - email
+                    - naam
+                    - telnr
+                    - postcode
+                    - gemeente
+                    - straat
+                    - huisnr
+                    - busnr
+            list:
+                actions: ['show','edit','delete']
+                batch_actions: ['delete']
+
+        Afspraak:
+            class: App\Entity\Afspraak
+            label: "Afspraak"
+            list:
+                actions: ['edit','show','delete']
+                batch_actions: ['delete']
+                filters: ["Kapper","Klant"]
+            show:
+                fields:
+                    - notities
+                    - datum
+                    - begintijd
+                    - Klant
+                    - Kapper
+                    #- DienstenKappers
+
+
+
+        Agenda:
+            class: App\Entity\Agenda
+            label: "Agenda"
+            list:
+                actions: ['show','edit','delete']
+                batch_actions: ['delete']
+
+        Diensten:
+            class: App\Entity\Diensten
+            label: "Diensten"
+            list:
+                actions: ['show','edit','delete']
+                batch_actions: ['delete']
+            form:
+                fields:
+                    - naam
+                    - omschrijving
+            show:
+                fields:
+                    - id
+                    - naam
+                    - omschrijving
+
+
+        DienstenKapper:
+            class: App\Entity\DienstenKapper
+            label: "DienstenKapper"
+            list:
+                actions: ['show','edit','delete']
+                batch_actions: ['delete']
+            form:
+                fields:
+                    - duur
+                    - prijs
+                    - Kapper
+                    - Diensten
+            show:
+                fields:
+                    - id
+                    - duur
+                    - prijs
+                    - Kapper
+                    - Diensten
+
+
