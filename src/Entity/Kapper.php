@@ -39,6 +39,7 @@ class Kapper
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
+     * @Groups({"kapper:read"})
      * @ORM\Column(type="integer")
      */
     private $id;

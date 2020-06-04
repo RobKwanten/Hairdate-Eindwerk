@@ -40,6 +40,7 @@ class Klant implements UserInterface
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
+     * @Groups({"klant:read"})
      * @ORM\Column(type="integer")
      */
     private $id;
