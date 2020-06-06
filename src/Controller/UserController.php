@@ -5,12 +5,14 @@ namespace App\Controller;
 
 
 use App\Entity\Klant;
+use App\Traits\MailerTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
+    use MailerTrait;
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder){
 
         $em = $this->getDoctrine()->getManager();
@@ -37,9 +39,11 @@ class UserController extends AbstractController
             ->setHuisnr($huisnr)
             ->setTelnr($telnr)
             ->setRegKey('renew');
+        $link = 'http://localhost:8000/bevestig?reg_key='.$klant->getRegKey();
 
         $em->persist($klant);
         $em->flush();
+        //$this->sendMail($email, $link);
         return $this->json(sprintf('Klant created'),'201', ['access-control-allow-origin'=>'*']);
     }
 }
