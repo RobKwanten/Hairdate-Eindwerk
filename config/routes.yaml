@@ -5,3 +5,8 @@
 authentication:
   path: /api/login_check
   methods: [POST]
+
+register:
+  path: /api/register
+  controller: App\Controller\UserController::register
+  methods: [POST, GET]

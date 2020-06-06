@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200602155507 extends AbstractMigration
+final class Version20200605092509 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -23,7 +23,7 @@ final class Version20200602155507 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE afspraak (id INT AUTO_INCREMENT NOT NULL, klant_id INT NOT NULL, kapper_id INT NOT NULL, dienst_id INT NOT NULL, notities LONGTEXT DEFAULT NULL, datum DATE NOT NULL, begintijd TIME NOT NULL, bevestigd TINYINT(1) NOT NULL, created_at DATETIME NOT NULL, INDEX IDX_CBC4B2053C427B2F (klant_id), INDEX IDX_CBC4B205CAD0FA10 (kapper_id), INDEX IDX_CBC4B2057DC308 (dienst_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE klant (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, naam VARCHAR(255) NOT NULL, voornaam VARCHAR(255) NOT NULL, postcode INT NOT NULL, gemeente VARCHAR(255) NOT NULL, straat VARCHAR(255) NOT NULL, huisnr VARCHAR(255) NOT NULL, busnr VARCHAR(255) DEFAULT NULL, telnr VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, UNIQUE INDEX UNIQ_BC33ABE1E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE klant (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, naam VARCHAR(255) NOT NULL, voornaam VARCHAR(255) NOT NULL, postcode INT NOT NULL, gemeente VARCHAR(255) NOT NULL, straat VARCHAR(255) NOT NULL, huisnr VARCHAR(255) NOT NULL, busnr VARCHAR(255) DEFAULT NULL, telnr VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, reg_key VARCHAR(255) NOT NULL, is_enabled TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_BC33ABE1E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE kapper (id INT AUTO_INCREMENT NOT NULL, naam VARCHAR(255) NOT NULL, postcode INT NOT NULL, gemeente VARCHAR(255) NOT NULL, straat VARCHAR(255) NOT NULL, huisnr VARCHAR(255) NOT NULL, busnr VARCHAR(255) DEFAULT NULL, telnr VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE diensten_kapper (id INT AUTO_INCREMENT NOT NULL, diensten_id INT NOT NULL, kapper_id INT NOT NULL, duur INT NOT NULL, prijs INT NOT NULL, INDEX IDX_2EE19D232BF5ECC0 (diensten_id), INDEX IDX_2EE19D23CAD0FA10 (kapper_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE diensten (id INT AUTO_INCREMENT NOT NULL, naam VARCHAR(255) NOT NULL, omschrijving LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');

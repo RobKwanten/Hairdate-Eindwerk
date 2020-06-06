@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=KlantRepository::class)
  * @ApiResource(
- *     collectionOperations={"get"},
+ *     collectionOperations={"get", "post"},
  *     itemOperations= {"get", "put", "delete"},
  *     normalizationContext={"groups"="klant:read"},
  *     denormalizationContext={"groups"="klant:write"},
@@ -140,11 +140,9 @@ class Klant implements UserInterface
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"klant:read"})
+     * @Groups({"klant:read","klant:write"})
      */
     private $isEnabled= false;
-
-    private $encode;
 
     public function __construct()
     {
@@ -385,7 +383,6 @@ class Klant implements UserInterface
 
     public function setRegKey(string $string): self
     {
-
         if ($string === 'renew'){
             $this->regKey = md5(mt_rand());
         }
@@ -398,10 +395,20 @@ class Klant implements UserInterface
         return $this->isEnabled;
     }
 
-    public function setIsEnabled(): self
+    public function setIsEnabled(bool $isEnabled): self
     {
-        $this->isEnabled = false;
+        $this->isEnabled = $isEnabled;
 
         return $this;
     }
 }
+
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Klant::class, inversedBy="afspraken")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"afspraak:read","afspraak:write"})
+     */
+    private $Klant;
