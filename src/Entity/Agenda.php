@@ -24,7 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @ApiFilter(SearchFilter::class, properties={
  *     "Kapper":"exact",
-        "Kapper.naam":"partial"
+        "Kapper.naam":"partial",
+ *     "datum":"partial"
  *     })
  * @ApiFilter(PropertyFilter::class)
  * @ORM\Entity(repositoryClass=AgendaRepository::class)

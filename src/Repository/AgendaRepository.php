@@ -19,6 +19,18 @@ class AgendaRepository extends ServiceEntityRepository
         parent::__construct($registry, Agenda::class);
     }
 
+    public function findAgendaByDate($datum, $kapper)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.openingstijd','a.sluitingstijd')
+            ->andWhere('a.datum = :datum')
+            ->andWhere('a.Kapper = :kapper')
+            ->setParameter('datum',$datum)
+            ->setParameter("kapper", $kapper)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Agenda[] Returns an array of Agenda objects
     //  */

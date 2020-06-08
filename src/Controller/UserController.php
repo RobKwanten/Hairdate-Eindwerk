@@ -39,7 +39,7 @@ class UserController extends AbstractController
             ->setHuisnr($huisnr)
             ->setTelnr($telnr)
             ->setRegKey('renew');
-        $link = 'http://localhost:8000/bevestig?reg_key='.$klant->getRegKey();
+        //$link = 'http://localhost:8000/bevestig?reg_key='.$klant->getRegKey();
 
         $em->persist($klant);
         $em->flush();

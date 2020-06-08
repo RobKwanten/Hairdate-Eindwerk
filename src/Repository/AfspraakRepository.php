@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Afspraak;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,18 @@ class AfspraakRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Afspraak::class);
+    }
+
+    public function findAllAfsprakenByDate($datum, $kapper)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.begintijd','a.eindtijd')
+            ->andWhere('a.datum = :datum')
+            ->andWhere('a.Kapper = :kapper')
+            ->setParameter('datum',$datum)
+            ->setParameter("kapper", $kapper)
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

@@ -29,6 +29,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         "Klant":"exact",
  *      "Klant.naam":"partial",
  *     "Klant.email":"partial",
+ *     "datum":"partial",
  *     "Kapper":"exact",
  *      "Kapper.naam":"partial"
  *     })
@@ -65,10 +66,18 @@ class Afspraak
     private $begintijd;
 
     /**
+     * @ORM\Column(type="time")
+     * @Groups({"afspraak:read","afspraak:write","klant:read","kapper:read","klant:write"})
+     * @Assert\NotBlank()
+     */
+    private $eindtijd;
+
+    /**
      * @ORM\Column(type="boolean")
      * @Groups({"afspraak:read","kapper:read"})
      */
-    private $bevestigd;
+
+    private $bevestigd=false;
 
     /**
      * @ORM\Column(type="datetime")
@@ -141,6 +150,16 @@ class Afspraak
     public function setBegintijd(\DateTimeInterface $begintijd): self
     {
         $this->begintijd = $begintijd;
+        $tijd = date_format($begintijd, "H:i:s");
+        $tijd= strtotime($tijd);
+        $tijd= strtotime('+30 minutes', $tijd);
+        $tijd= date("h:i:s", $tijd);
+
+        try {
+            $this->eindtijd = new \DateTimeImmutable($tijd);
+        } catch (\Exception $e) {
+            $this->eindtijd = $begintijd;
+        }
 
         return $this;
     }
@@ -211,5 +230,10 @@ class Afspraak
     public function __toString()
     {
         return $this->notities;
+    }
+
+    public function getEindtijd(): ?\DateTimeInterface
+    {
+        return $this->eindtijd;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -113,6 +114,7 @@ class Kapper
     /**
      * @ORM\OneToMany(targetEntity=Afspraak::class, mappedBy="Kapper")
      * @Groups({"kapper:read"})
+     * @ApiSubresource()
      */
     private $afspraken;
 
