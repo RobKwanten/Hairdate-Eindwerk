@@ -30,14 +30,16 @@ class AgendaController extends AbstractController
     public function getAgenda(Request $request, AfspraakRepository $afspraakRepository, AgendaRepository $agendaRepository)
     {
         $datum = $_GET['datum'];
-        $kapper= $_GET['kapper'];
+        $kapper = $_GET['kapper'];
+        $datum = strtotime($datum);
+        $datum = date("Y/m/d", $datum);
         $afspraken = $afspraakRepository->findAllAfsprakenByDate($datum,$kapper);
         $openingsuren = $agendaRepository->findAgendaByDate($datum,$kapper);
-        $openingstijd= strtotime(date_format($openingsuren[0]['openingstijd'], "H:i:s"));
-        $sluitingstijd= strtotime(date_format($openingsuren[0]['sluitingstijd'], "H:i:s"));
-        $afspraakDuur=15;
-        $begintijden=[];
-        $eindtijden=[];
+        $openingstijd = strtotime(date_format($openingsuren[0]['openingstijd'], "H:i:s"));
+        $sluitingstijd = strtotime(date_format($openingsuren[0]['sluitingstijd'], "H:i:s"));
+        $afspraakDuur = $_GET["duur"];
+        $begintijden = [];
+        $eindtijden = [];
 
         foreach ($afspraken as $afspraak){
             array_push($begintijden,strtotime(date_format($afspraak["begintijd"], "H:i:s")));

@@ -153,7 +153,7 @@ class Afspraak
         $tijd = date_format($begintijd, "H:i:s");
         $tijd= strtotime($tijd);
         $tijd= strtotime('+30 minutes', $tijd);
-        $tijd= date("h:i:s", $tijd);
+        $tijd= date("H:i:s", $tijd);
 
         try {
             $this->eindtijd = new \DateTimeImmutable($tijd);
