@@ -76,6 +76,6 @@ class AfspraakController extends AbstractController
         $em->persist($afspraak);
         $em->flush();
 
-        return $this->json(sprintf('Afspraak created'),'201', ['access-control-allow-origin'=>'*']);
+        return $this->json(sprintf("Afspraak created"),'201', ['access-control-allow-origin'=>'*']);
     }
 }

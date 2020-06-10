@@ -73,6 +73,8 @@ class DienstenKapper
      */
     private $afspraken;
 
+    private $hallo = "hallo";
+
     public function __construct()
     {
         $this->Afspraken = new ArrayCollection();
@@ -165,6 +167,6 @@ class DienstenKapper
 
     public function __toString()
     {
-        return $this->Diensten;
+        return $this->hallo;
     }
 }
