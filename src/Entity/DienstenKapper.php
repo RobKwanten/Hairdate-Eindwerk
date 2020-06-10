@@ -35,7 +35,9 @@ class DienstenKapper
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"dienstenKapper:read","kapper:read","afspraak:read"})
      */
+
     private $id;
 
     /**

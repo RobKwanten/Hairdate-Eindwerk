@@ -5,25 +5,64 @@ namespace App\Controller;
 
 
 use App\Entity\Afspraak;
+use App\Entity\DienstenKapper;
+use App\Entity\Kapper;
+use App\Entity\Klant;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class AfspraakController extends AbstractController
 {
-    public function makeAfspraak(Request $request){
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+    private $serializer;
+
+    public function __construct(TokenStorageInterface $tokenStorage, SerializerInterface $serializer)
+    {
+        $this->tokenStorage = $tokenStorage;
+        $this->serializer = $serializer;
+    }
+
+    public function newAfspraak(Request $request){
         $em= $this->getDoctrine()->getManager();
         $content = json_decode($request->getContent(), false);
+
+        $klantRepo = $this->getDoctrine()->getRepository(Klant::class);
+        $kapperRepo = $this->getDoctrine()->getRepository(Kapper::class);
+        $dienstRepo = $this->getDoctrine()->getRepository(DienstenKapper::class);
 
         $notities = $content->notities;
         $datum = $content->datum;
         $begintijd = $content->begintijd;
-        $begintijd= strtotime($content->begintijd);
-        $eindtijd= strtotime("+30 minutes",$begintijd);
-        $begintijd= date("h:i:s", $begintijd);
-        $eindtijd= date("h:i:s",$eindtijd);
+        $duur = $content->duur;
+
+        $begintijd = strtotime($begintijd);
+        $eindtijd= strtotime("+".$duur." minutes", $begintijd);
+
+        $datum = date("Y-m-d", strtotime($datum));
+        $begintijd = date("H:i:s",$begintijd);
+        $eindtijd = date("H:i:s",$eindtijd);
+
+        try {
+            $datum = new \DateTimeImmutable($datum);
+            $begintijd = new \DateTimeImmutable($begintijd);
+            $eindtijd = new \DateTimeImmutable($eindtijd);
+        } catch (\Exception $e) {
+            //SCHRIJF ERROR
+        }
+
         $klant = $content->Klant;
+        $klant = $klantRepo->findOneBy(['id'=>$klant]);
+
         $kapper = $content->Kapper;
+        $kapper = $kapperRepo->findOneBy(['id'=>$kapper]);
+
         $dienst = $content->Dienst;
+        $dienst = $dienstRepo->findOneBy(['id'=>$dienst]);
 
         $afspraak = new Afspraak();
         $afspraak->setNotities($notities)
@@ -39,5 +78,4 @@ class AfspraakController extends AbstractController
 
         return $this->json(sprintf('Afspraak created'),'201', ['access-control-allow-origin'=>'*']);
     }
-
 }

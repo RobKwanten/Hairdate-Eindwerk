@@ -11,7 +11,12 @@ register:
   controller: App\Controller\UserController::register
   methods: [POST, GET]
 
+agenda:
+  path: /api/agenda
+  controller: App\Controller\AgendaController::getAgenda
+  methods: [POST, GET]
+
 afspraak:
   path: /api/afspraak
-  controller: App\Controller\AgendaController::getAgenda
+  controller: App\Controller\AfspraakController::newAfspraak
   methods: [POST, GET]

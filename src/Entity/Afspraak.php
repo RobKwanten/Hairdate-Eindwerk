@@ -150,16 +150,13 @@ class Afspraak
     public function setBegintijd(\DateTimeInterface $begintijd): self
     {
         $this->begintijd = $begintijd;
-        $tijd = date_format($begintijd, "H:i:s");
-        $tijd= strtotime($tijd);
-        $tijd= strtotime('+30 minutes', $tijd);
-        $tijd= date("H:i:s", $tijd);
 
-        try {
-            $this->eindtijd = new \DateTimeImmutable($tijd);
-        } catch (\Exception $e) {
-            $this->eindtijd = $begintijd;
-        }
+        return $this;
+    }
+
+    public function setEindtijd(\DateTimeInterface $eindtijd): self
+    {
+        $this->eindtijd = $eindtijd;
 
         return $this;
     }
