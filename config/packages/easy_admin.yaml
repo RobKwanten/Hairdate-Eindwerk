@@ -100,7 +100,7 @@ easy_admin:
             class: App\Entity\Afspraak
             label: "Afspraak"
             list:
-                actions: ['edit','show','delete']
+                actions: ['show','delete']
                 batch_actions: ['delete']
                 filters: ["Kapper","Klant"]
             show:
@@ -110,7 +110,7 @@ easy_admin:
                     - begintijd
                     - Klant
                     - Kapper
-                    #- DienstenKappers
+
 
 
 

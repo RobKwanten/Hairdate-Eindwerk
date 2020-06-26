@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(SearchFilter::class, properties={
         "naam":"partial",
  *      "postcode":"partial",
- *     "email":"partial"
+ *      "email":"partial"
  *     })
  * @ApiFilter(PropertyFilter::class)
  * @UniqueEntity(fields={"email"})

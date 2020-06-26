@@ -7,7 +7,11 @@ security:
         algorithm: auto
 
   providers:
-    app_user_provider:
+    entity_provider:
+      entity:
+        class: App\Entity\Admin
+        property: email
+    andere_provider:
       entity:
         class: App\Entity\Klant
         property: email
@@ -18,6 +22,7 @@ security:
 
     login:
       pattern:  ^/api/login_check
+      provider: andere_provider
       stateless: true
       anonymous: true
       json_login:
@@ -29,23 +34,26 @@ security:
 
     register:
       pattern:  ^/api/register
+      provider: andere_provider
       stateless: true
       anonymous: true
 
     api:
       pattern: ^/api
       stateless: true
+      provider: andere_provider
       guard:
         authenticators:
           - lexik_jwt_authentication.jwt_token_authenticator
 
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
+      provider: entity_provider
       security: false
 
     main:
       anonymous: lazy
-      provider: app_user_provider
+      provider: entity_provider
       guard:
           authenticators:
               - App\Security\CustomAuthAuthenticator
@@ -55,8 +63,8 @@ security:
           # target: app_any_route
 
   access_control:
-    #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-    #- { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+    - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
     - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }

@@ -56,7 +56,7 @@ class AgendaController extends AbstractController
                 array_push($beschikbareUren, date("H:i:s",$openingstijd));
                 $openingstijd = strtotime("+15 minutes", $openingstijd);
             } else {
-                $openingstijd = strtotime("+30 minutes", $openingstijd);
+                $openingstijd = strtotime("+".$afspraakDuur." minutes", $openingstijd);
                 $duurTegengekomenAfspraak= $eindtijden[$afspraakTeller]-$begintijden[$afspraakTeller];
                 $duurTegengekomenAfspraak = date("i", $duurTegengekomenAfspraak);
                 $openingstijd=strtotime("+".$duurTegengekomenAfspraak." minutes",$openingstijd);

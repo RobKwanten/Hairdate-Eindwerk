@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *     collectionOperations={"get", "post"},
+ *     collectionOperations={"get"},
  *     itemOperations= {"get","delete"},
  *     normalizationContext={"groups"="afspraak:read"},
  *     denormalizationContext={"groups"="afspraak:write"},
@@ -28,9 +28,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(SearchFilter::class, properties={
         "Klant":"exact",
  *      "Klant.naam":"partial",
- *     "Klant.email":"partial",
- *     "datum":"partial",
- *     "Kapper":"exact",
+ *      "Klant.email":"partial",
+ *      "datum":"partial",
+ *      "Kapper":"exact",
  *      "Kapper.naam":"partial"
  *     })
  * @ApiFilter(PropertyFilter::class)

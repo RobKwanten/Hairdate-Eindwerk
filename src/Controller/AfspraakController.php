@@ -70,7 +70,7 @@ class AfspraakController extends AbstractController
             ->setBegintijd($begintijd)
             ->setEindtijd($eindtijd)
             ->setKlant($klant)
-            ->setKapper($kapper)
+            ->setKapper($kapper) 
             ->setDienst($dienst);
 
         $em->persist($afspraak);

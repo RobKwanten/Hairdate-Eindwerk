@@ -39,11 +39,11 @@ class UserController extends AbstractController
             ->setHuisnr($huisnr)
             ->setTelnr($telnr)
             ->setRegKey('renew');
-        //$link = 'http://localhost:8000/bevestig?reg_key='.$klant->getRegKey();
+        $link = 'http://localhost:8000/bevestig?reg_key='.$klant->getRegKey();
 
         $em->persist($klant);
         $em->flush();
-        //$this->sendMail($email, $link);
+        $this->sendMail($email, $link);
         return $this->json(sprintf('Klant created'),'201', ['access-control-allow-origin'=>'*']);
     }
 }
