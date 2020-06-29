@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AfspraakRepository;
 use Carbon\Carbon;
@@ -34,6 +35,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      "Kapper.naam":"partial"
  *     })
  * @ApiFilter(PropertyFilter::class)
+ * @ApiFilter(DateFilter::class, properties={"datum"})
  * @ORM\Entity(repositoryClass=AfspraakRepository::class)
  */
 class Afspraak

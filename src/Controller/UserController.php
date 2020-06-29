@@ -43,7 +43,7 @@ class UserController extends AbstractController
 
         $em->persist($klant);
         $em->flush();
-        $this->sendMail($email, $link);
+        $this->sendMail($link);
         return $this->json(sprintf('Klant created'),'201', ['access-control-allow-origin'=>'*']);
     }
 }

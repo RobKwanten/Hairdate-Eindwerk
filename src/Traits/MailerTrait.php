@@ -10,7 +10,7 @@ use PHPMailer\PHPMailer\Exception;
 
 trait MailerTrait
 {
-    public function sendMail($mailTo, $link)
+    public function sendMail( $link)
     {
         $mail = new PHPMailer(true);
 
@@ -34,7 +34,7 @@ trait MailerTrait
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'Test';
-            $mail->Body    = $body;
+            $mail->Body    = str_replace('%%link%%', $link, file_get_contents(__DIR__.'/../Mail/mail.html'));
             $mail->AltBody = strip_tags($body);
 
             $mail->send();

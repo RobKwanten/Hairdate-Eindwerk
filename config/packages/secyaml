@@ -1,23 +1,25 @@
     login:
-          pattern:  ^/api/login_check
-          stateless: true
-          anonymous: true
-          json_login:
-            check_path: /api/login_check
-            success_handler:
-              lexik_jwt_authentication.handler.authentication_success
-            failure_handler:
-              lexik_jwt_authentication.handler.authentication_failure
+      pattern:  ^/api/login_check
+      provider: andere_provider
+      stateless: true
+      anonymous: true
+      json_login:
+        check_path: /api/login_check
+        success_handler:
+          lexik_jwt_authentication.handler.authentication_success
+        failure_handler:
+          lexik_jwt_authentication.handler.authentication_failure
 
     register:
       pattern:  ^/api/register
+      provider: andere_provider
       stateless: true
       anonymous: true
 
     api:
       pattern: ^/api
       stateless: true
+      provider: andere_provider
       guard:
         authenticators:
           - lexik_jwt_authentication.jwt_token_authenticator
-

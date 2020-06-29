@@ -19,4 +19,9 @@ agenda:
 afspraak:
   path: /api/afspraak
   controller: App\Controller\AfspraakController::newAfspraak
-  methods: [POST, GET]
+  methods: [POST]
+
+mijnAfspraaken:
+  path: /api/mijnAfspraken
+  controller: App\Controller\AfspraakController::getAfspraken
+  methods: [GET]

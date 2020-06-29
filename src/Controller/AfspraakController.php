@@ -8,6 +8,7 @@ use App\Entity\Afspraak;
 use App\Entity\DienstenKapper;
 use App\Entity\Kapper;
 use App\Entity\Klant;
+use App\Repository\AfspraakRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -77,5 +78,14 @@ class AfspraakController extends AbstractController
         $em->flush();
 
         return $this->json(sprintf("Afspraak created"),'201', ['access-control-allow-origin'=>'*']);
+    }
+
+    public function getAfspraken(AfspraakRepository $repository){
+        $id = $_GET['id'];
+        $datum = date("Y-m-d");
+
+        $afspraken = "hallo";
+
+        return $this->json($datum,'201', ['access-control-allow-origin'=>'*']);
     }
 }
