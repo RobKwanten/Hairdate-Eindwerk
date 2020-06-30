@@ -52,7 +52,7 @@ class AgendaController extends AbstractController
 
         while (strtotime("+".$afspraakDuur." minutes",  $openingstijd)<=$sluitingstijd){
             $afspraakTeller=0;
-            if (!in_array(strtotime("+".$afspraakDuur." minutes", $openingstijd), $begintijden)){
+            if (!in_array(strtotime("+".($afspraakDuur)." minutes", $openingstijd), $begintijden)){
                 array_push($beschikbareUren, date("H:i:s",$openingstijd));
                 $openingstijd = strtotime("+15 minutes", $openingstijd);
             } else {

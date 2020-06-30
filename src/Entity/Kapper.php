@@ -119,7 +119,7 @@ class Kapper
     private $afspraken;
 
     /**
-     * @ORM\OneToMany(targetEntity=DienstenKapper::class, mappedBy="Kapper",orphanRemoval=true,cascade="persist")
+     * @ORM\OneToMany(targetEntity=DienstenKapper::class, mappedBy="Kapper",orphanRemoval=true)
      * @Groups({"kapper:read","kapper:write"})
      */
     private $dienstenKappers;
